@@ -96,7 +96,7 @@
         </div>
 
         <div class="calculator-section">
-            <label>Gastos Local</label>
+            <label>Gastos BS</label>
             <div class="controls">
                 <input type="number" id="temp-val" placeholder="0.00">
                 <button class="btn btn-plus" onclick="actionLocal(1)">+</button>
@@ -109,14 +109,14 @@
 
     <div class="visual-gasto" id="gasto-box">
         <span class="gasto-label">Estado de la Operación</span>
-        <span class="gasto-monto" id="view-local-debt">0.00 Local</span>
+        <span class="gasto-monto" id="view-local-debt">0.00 BS</span>
         <div id="status-container"></div>
     </div>
 
     <div class="result-box" id="result-box">
-        <span class="gasto-label" style="color:#2f3542">Saldo en Billetera Principal</span>
-        <span class="res-usd" id="res-usd">$ 0.00</span>
-        <span class="res-local" id="res-local">≈ 0.00 Local</span>
+        <span class="gasto-label" style="color:#2f3542">Resultado</span>
+        <span class="res-usd" id="res-usd">$ 0.00 USD</span>
+        <span class="res-local" id="res-local">≈ 0.00 BS</span>
     </div>
 </div>
 
@@ -158,7 +158,7 @@
 
         if (diffLocal > 0) {
             debtToSubtractFromMain = rate > 0 ? diffLocal / rate : 0;
-            statusContainer.innerHTML = `<span class="falta-text">Faltan cubrir: $${debtToSubtractFromMain.toFixed(2)}</span>`;
+            statusContainer.innerHTML = `<span class="falta-text">${debtToSubtractFromMain.toFixed(2)} USD</span>`;
         } else if (totalLocal > 0 || totalUSDAdded > 0) {
             const changeUSD = rate > 0 ? Math.abs(diffLocal) / rate : 0;
             statusContainer.innerHTML = `
@@ -183,9 +183,9 @@
         // Totales Visuales
         document.getElementById('total-usd-sum').textContent = totalUSDAdded.toFixed(2);
         document.getElementById('total-local-sum').textContent = totalLocal.toLocaleString();
-        document.getElementById('view-local-debt').textContent = totalLocal.toLocaleString() + " Local";
-        document.getElementById('res-usd').textContent = `$${finalUSD.toLocaleString(undefined, {minimumFractionDigits:2})}`;
-        document.getElementById('res-local').textContent = `≈ ${(finalUSD * rate).toLocaleString()} Local`;
+        document.getElementById('view-local-debt').textContent = totalLocal.toLocaleString() + " BS";
+        document.getElementById('res-usd').textContent = `$ ${finalUSD.toLocaleString(undefined, {minimumFractionDigits:2})} USD`;
+        document.getElementById('res-local').textContent = `≈ ${(finalUSD * rate).toLocaleString()} BS`;
 
         const box = document.getElementById('result-box');
         if(finalUSD < 0) {
